@@ -1,0 +1,15 @@
+{
+  "name": "buildeasy-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BuildEasy marketplace API with PostgreSQL persistence",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:local": "node --env-file=.env server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
+  }
+}

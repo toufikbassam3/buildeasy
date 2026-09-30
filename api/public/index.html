@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="BuildEasy - Construction material ordering and supplier marketplace."
+  >
+
+  <title>BuildEasy | Construction Materials & Suppliers</title>
+
+  <link rel="stylesheet" href="style.css?v=20260930-account-name-material-art">
+</head>
+
+<body>
+
+  <!-- =========================
+       TOP ANNOUNCEMENT
+  ========================== -->
+  <div class="announcement">
+    <div class="container announcement-inner">
+      <span>
+        <strong>BuildEasy</strong>
+        — Construction materials made easier.
+      </span>
+
+      <a class="announcement-call" href="tel:89278876">
+        Customer Support: 89278876
+      </a>
+    </div>
+  </div>
+
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+
+      <button class="brand" onclick="goHome()" aria-label="BuildEasy home">
+        <span class="brand-mark">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+
+        <span class="brand-text">
+          <strong>BuildEasy</strong>
+          <small>Build smarter. Buy better.</small>
+        </span>
+      </button>
+
+
+      <nav class="desktop-nav">
+        <a href="#home" data-i18n="navHome">Home</a>
+        <a href="#materials" data-i18n="navMaterials">Materials</a>
+        <a href="#suppliers" data-i18n="navSuppliers">Suppliers</a>
+        <a href="#how" data-i18n="navHow">How It Works</a>
+        <a href="#supplier-register" data-i18n="navSupplier">Register as Supplier</a>
+      </nav>
+
+
+      <div class="nav-actions">
+
+        <div class="language-switcher" aria-label="Language">
+          <button id="langEn" class="lang-btn active" onclick="setLanguage('en')">
+            EN
+          </button>
+
+          <button id="langBn" class="lang-btn" onclick="setLanguage('bn')">
+            বাংলা
+          </button>
+        </div>
+
+        <button class="support-icon-button" onclick="callCustomerSupport()">
+          ☎
+        </button>
+
+        <button id="accountHeaderButton" class="outline-button desktop-only" onclick="openAccountMenu()" aria-label="Login">
+          <span data-i18n="login">Login</span>
+        </button>
+
+        <button class="primary-button desktop-only" onclick="startOrder()">
+          <span data-i18n="getStarted">Get Started</span>
+        </button>
+
+        <button class="menu-button" onclick="toggleMobileMenu()" aria-label="Menu">
+          ☰
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- MOBILE NAV -->
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="#home" onclick="closeMobileMenu()" data-i18n="navHome">Home</a>
+      <a href="#materials" onclick="closeMobileMenu()" data-i18n="navMaterials">Materials</a>
+      <a href="#suppliers" onclick="closeMobileMenu()" data-i18n="navSuppliers">Suppliers</a>
+      <a href="#how" onclick="closeMobileMenu()" data-i18n="navHow">How It Works</a>
+      <a href="#supplier-register" onclick="closeMobileMenu()" data-i18n="navSupplier">
+        Register as Supplier
+      </a>
+
+      <button id="mobileAccountButton" onclick="openAccountMenu(); closeMobileMenu();">
+        Login
+      </button>
+
+      <button onclick="startOrder(); closeMobileMenu();">
+        Get Started
+      </button>
+    </div>
+  </header>
+
+
+  <main id="home">
+
+    <!-- =========================
+         HERO
+    ========================== -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+
+        <div class="hero-content">
+
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span data-i18n="heroEyebrow">
+              Trusted construction material marketplace
+            </span>
+          </div>
+
+          <h1 data-i18n="heroTitle">
+            Build smarter.<br>
+            Buy better.
+          </h1>
+
+          <p data-i18n="heroText">
+            Find trusted suppliers, choose the materials you need,
+            and place your construction order through one simple platform.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary-button large" onclick="startOrder()">
+              <span data-i18n="startOrder">Start an Order</span>
+              <span>→</span>
+            </button>
+
+            <button class="secondary-button large" onclick="document.getElementById('suppliers').scrollIntoView({behavior:'smooth'})">
+              <span data-i18n="viewSuppliers">View Suppliers</span>
+            </button>
+          </div>
+
+          <div class="trust-row">
+            <span>✓ Verified suppliers</span>
+            <span>✓ Simple ordering</span>
+            <span>✓ Support available</span>
+          </div>
+
+        </div>
+
+
+        <!-- QUICK ORDER -->
+        <div class="quick-order-card">
+
+          <div class="quick-order-header">
+            <div>
+              <span class="small-label">BUILDEASY</span>
+              <h2 data-i18n="quickOrder">Quick Order</h2>
+            </div>
+
+            <div class="quick-order-icon">↗</div>
+          </div>
+
+          <div class="quick-progress">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <label data-i18n="materialLabel">Material</label>
+
+          <select id="quickMaterial">
+            <option value="">Select material</option>
+          </select>
+
+          <label data-i18n="quantityLabel">Quantity</label>
+
+          <div class="quantity-row">
+            <input
+              id="quickQuantity"
+              type="number"
+              min="1"
+              placeholder="Enter quantity"
+            >
+
+            <select id="quickUnit">
+              <option value="">Unit</option>
+            </select>
+          </div>
+
+          <label data-i18n="locationLabel">Delivery location</label>
+
+          <input
+            id="quickLocation"
+            type="text"
+            placeholder="City / Area / Full address"
+            data-i18n-placeholder="locationPlaceholder"
+          >
+
+          <button class="primary-button full" onclick="quickOrderStart()">
+            <span data-i18n="continue">Continue</span>
+            →
+          </button>
+
+          <div class="support-mini">
+            <span>Need help?</span>
+            <button onclick="callCustomerSupport()">
+              ☎ 89278876
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         STATS
+    ========================== -->
+    <section class="stats-section">
+      <div class="container stats-grid">
+
+        <div class="stat-card">
+          <strong id="statSuppliers">3+</strong>
+          <span data-i18n="statSuppliers">Registered suppliers</span>
+        </div>
+
+        <div class="stat-card">
+          <strong id="statMaterials">6+</strong>
+          <span data-i18n="statMaterials">Construction materials</span>
+        </div>
+
+        <div class="stat-card">
+          <strong id="statOrders">0</strong>
+          <span data-i18n="statOrders">Orders placed</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>24/7</strong>
+          <span data-i18n="statSupport">Support access</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         MATERIALS
+    ========================== -->
+    <section id="materials" class="section">
+      <div class="container">
+
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker" data-i18n="materialsKicker">
+              BUILDING ESSENTIALS
+            </span>
+
+            <h2 data-i18n="materialsTitle">
+              Materials for every project
+            </h2>
+
+            <p data-i18n="materialsText">
+              Choose the material you need and continue with your requirement.
+            </p>
+          </div>
+
+          <button class="text-button" onclick="startOrder()">
+            <span data-i18n="orderMaterial">Order material</span>
+            →
+          </button>
+        </div>
+
+
+        <div id="materialsGrid" class="materials-grid"></div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         ORDER WORKSPACE
+    ========================== -->
+    <section id="orderWorkspace" class="section workspace-section">
+
+      <div class="container">
+
+        <div class="workspace-head">
+          <div>
+            <span class="section-kicker">BUILDEASY ORDER WORKSPACE</span>
+            <h2 data-i18n="workspaceTitle">Place your material requirement</h2>
+            <p data-i18n="workspaceText">
+              Tell us what you need. Then choose an approved supplier.
+            </p>
+          </div>
+
+          <button class="ghost-button" onclick="goHome()">
+            ← <span data-i18n="backHome">Back</span>
+          </button>
+        </div>
+
+
+        <!-- STEP 1 -->
+        <div id="requirementScreen" class="workspace-screen">
+
+          <div class="step-indicator">
+            <span class="step active">1</span>
+            <span class="step-line"></span>
+            <span class="step">2</span>
+            <span class="step-line"></span>
+            <span class="step">3</span>
+          </div>
+
+          <div class="form-card">
+
+            <div class="form-card-heading">
+              <div>
+                <span class="mini-kicker">STEP 01</span>
+                <h3 data-i18n="requirementTitle">
+                  Your requirement
+                </h3>
+              </div>
+            </div>
+
+            <div class="form-grid">
+
+              <div class="field">
+                <label for="orderMaterial">
+                  <span data-i18n="materialLabel">Material</span>
+                </label>
+
+                <select id="orderMaterial">
+                  <option value="">Select material</option>
+                </select>
+              </div>
+
+
+              <div class="field">
+                <label for="orderQuantity">
+                  <span data-i18n="quantityLabel">Quantity</span>
+                </label>
+
+                <input
+                  id="orderQuantity"
+                  type="number"
+                  min="1"
+                  placeholder="Enter quantity"
+                >
+              </div>
+
+
+              <div class="field">
+                <label for="orderUnit">
+                  <span data-i18n="unitLabel">Unit</span>
+                </label>
+
+                <select id="orderUnit">
+                  <option value="">Select unit</option>
+                </select>
+              </div>
+
+
+              <div class="field">
+                <label for="orderDate">
+                  <span data-i18n="requiredBy">Required by</span>
+                </label>
+
+                <input id="orderDate" type="date">
+              </div>
+
+
+              <div class="field full-field">
+                <label for="orderLocation">
+                  <span data-i18n="deliveryLocation">
+                    Delivery location
+                  </span>
+                </label>
+
+                <textarea
+                  id="orderLocation"
+                  rows="3"
+                  placeholder="Enter delivery address"
+                  data-i18n-placeholder="addressPlaceholder"
+                ></textarea>
+              </div>
+
+
+              <div class="field">
+                <label for="projectType">
+                  <span data-i18n="projectType">Project type</span>
+                </label>
+
+                <select id="projectType">
+                  <option value="Residential">Residential</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="Renovation">Renovation</option>
+                  <option value="Infrastructure">Infrastructure</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+            </div>
+
+
+            <div class="form-footer">
+              <span class="secure-note">
+                🔒 Your requirement is handled securely.
+              </span>
+
+              <button class="primary-button" onclick="continueToSuppliers()">
+                <span data-i18n="findSuppliers">Find suppliers</span>
+                →
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+        <div id="supplierScreen" class="workspace-screen hidden">
+
+          <div class="workspace-topline">
+
+            <div>
+              <span class="mini-kicker">STEP 02</span>
+              <h3 data-i18n="chooseSupplier">Choose your supplier</h3>
+              <p data-i18n="approvedSupplierText">
+                Only approved suppliers are shown here.
+              </p>
+            </div>
+
+            <button class="ghost-button" onclick="showRequirementScreen()">
+              ← Change requirement
+            </button>
+
+          </div>
+
+
+          <div class="requirement-summary" id="requirementSummary"></div>
+
+          <div class="supplier-notice">
+            <span>✓</span>
+            <div>
+              <strong data-i18n="approvedOnly">
+                Approved supplier directory
+              </strong>
+
+              <p data-i18n="approvedOnlyText">
+                Supplier profiles become visible after approval.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="supplier-filter-row">
+            <input
+              id="supplierSearch"
+              type="search"
+              placeholder="Search supplier, city or category"
+              oninput="renderSuppliers()"
+            >
+
+            <select id="supplierCategoryFilter" onchange="renderSuppliers()">
+              <option value="">All categories</option>
+            </select>
+          </div>
+
+
+          <div id="suppliersGrid" class="suppliers-grid"></div>
+
+        </div>
+
+
+        <!-- STEP 3 -->
+        <div id="reviewScreen" class="workspace-screen hidden">
+
+          <div class="workspace-topline">
+
+            <div>
+              <span class="mini-kicker">STEP 03</span>
+              <h3 data-i18n="reviewOrder">Review your order</h3>
+              <p>
+                Check your details before submitting the order.
+              </p>
+            </div>
+
+            <button class="ghost-button" onclick="showSupplierScreen()">
+              ← Change supplier
+            </button>
+
+          </div>
+
+
+          <div id="reviewContent"></div>
+
+        </div>
+
+
+        <!-- ORDER SUCCESS -->
+        <div id="orderSuccess" class="workspace-screen hidden">
+          <div id="orderSuccessContent"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SUPPLIERS
+    ========================== -->
+    <section id="suppliers" class="section suppliers-section">
+
+      <div class="container">
+
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">SUPPLIER NETWORK</span>
+
+            <h2 data-i18n="supplierTitle">
+              Work with registered suppliers
+            </h2>
+
+            <p data-i18n="supplierText">
+              Customers can choose from suppliers approved by BuildEasy.
+            </p>
+          </div>
+
+          <button class="outline-button" onclick="document.getElementById('supplier-register').scrollIntoView({behavior:'smooth'})">
+            <span data-i18n="becomeSupplier">Become a supplier</span>
+          </button>
+        </div>
+
+
+        <div class="support-banner">
+
+          <div class="support-banner-icon">
+            ☎
+          </div>
+
+          <div>
+            <strong data-i18n="supplierSupportTitle">
+              Supplier Support
+            </strong>
+
+            <p data-i18n="supplierSupportText">
+              Suppliers can contact the BuildEasy team for registration and account support.
+            </p>
+          </div>
+
+          <a class="support-call-button" href="tel:89278876">
+            ☎ 89278876
+          </a>
+
+        </div>
+
+
+        <div id="publicSuppliersGrid" class="suppliers-grid"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         HOW IT WORKS
+    ========================== -->
+    <section id="how" class="section how-section">
+
+      <div class="container">
+
+        <div class="section-heading centered">
+          <span class="section-kicker">SIMPLE PROCESS</span>
+
+          <h2 data-i18n="howTitle">
+            How BuildEasy works
+          </h2>
+
+          <p data-i18n="howText">
+            A clear process from requirement to delivery.
+          </p>
+        </div>
+
+
+        <div class="process-grid">
+
+          <div class="process-card">
+            <span class="process-number">01</span>
+            <div class="process-icon">⌕</div>
+            <h3 data-i18n="step1Title">Tell us what you need</h3>
+            <p data-i18n="step1Text">
+              Select the material, quantity, unit and delivery location.
+            </p>
+          </div>
+
+
+          <div class="process-card">
+            <span class="process-number">02</span>
+            <div class="process-icon">✓</div>
+            <h3 data-i18n="step2Title">Choose a supplier</h3>
+            <p data-i18n="step2Text">
+              Select from BuildEasy-approved supplier profiles.
+            </p>
+          </div>
+
+
+          <div class="process-card">
+            <span class="process-number">03</span>
+            <div class="process-icon">▣</div>
+            <h3 data-i18n="step3Title">Confirm your order</h3>
+            <p data-i18n="step3Text">
+              Review your order and submit it for confirmation.
+            </p>
+          </div>
+
+
+          <div class="process-card">
+            <span class="process-number">04</span>
+            <div class="process-icon">→</div>
+            <h3 data-i18n="step4Title">Track delivery</h3>
+            <p data-i18n="step4Text">
+              Follow the order through confirmation, processing and delivery.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SUPPLIER REGISTRATION
+    ========================== -->
+    <section id="supplier-register" class="section registration-section">
+
+      <div class="container registration-grid">
+
+        <div class="registration-intro">
+
+          <span class="section-kicker">SUPPLIER NETWORK</span>
+
+          <h2 data-i18n="registerSupplierTitle">
+            Register your business with BuildEasy
+          </h2>
+
+          <p data-i18n="registerSupplierText">
+            Submit your supplier information. Your profile will become visible
+            to customers after BuildEasy approval.
+          </p>
+
+
+          <div class="registration-benefits">
+
+            <div>
+              <span>✓</span>
+              <div>
+                <strong>Professional supplier profile</strong>
+                <small>Your business can be discovered by customers.</small>
+              </div>
+            </div>
+
+            <div>
+              <span>✓</span>
+              <div>
+                <strong>Profile photo</strong>
+                <small>Photo preview only; profile photos are not saved in this version.</small>
+              </div>
+            </div>
+
+            <div>
+              <span>✓</span>
+              <div>
+                <strong>BuildEasy support</strong>
+                <small>Supplier support: 89278876</small>
+              </div>
+            </div>
+
+          </div>
+
+          <a href="tel:89278876" class="supplier-support-link">
+            ☎ Supplier Support: 89278876
+          </a>
+
+        </div>
+
+
+        <div class="form-card">
+
+          <div class="form-card-heading">
+            <div>
+              <span class="mini-kicker">SUPPLIER REGISTRATION</span>
+              <h3 data-i18n="supplierFormTitle">
+                Business information
+              </h3>
+            </div>
+          </div>
+
+
+          <form id="supplierForm" onsubmit="registerSupplier(event)">
+
+            <div class="form-grid">
+
+              <div class="field">
+                <label>Business / Shop Name *</label>
+                <input id="supplierBusinessName" required>
+              </div>
+
+              <div class="field">
+                <label>Owner / Contact Person *</label>
+                <input id="supplierOwnerName" required>
+              </div>
+
+              <div class="field">
+                <label>Mobile *</label>
+                <input id="supplierPhone" type="tel" required>
+              </div>
+
+              <div class="field">
+                <label>Email *</label>
+                <input id="supplierEmail" type="email" required>
+              </div>
+
+              <div class="field">
+                <label>Password *</label>
+                <input id="supplierPassword" type="password" minlength="8" required>
+              </div>
+
+              <div class="field">
+                <label>Business Type *</label>
+
+                <select id="supplierBusinessType" required>
+                  <option value="">Select type</option>
+                  <option>Construction Material Supplier</option>
+                  <option>Building Material Shop</option>
+                  <option>Hardware Supplier</option>
+                  <option>Manufacturer</option>
+                  <option>Distributor</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label>City *</label>
+                <input id="supplierCity" required>
+              </div>
+
+              <div class="field">
+                <label>State *</label>
+                <input id="supplierState" required>
+              </div>
+
+              <div class="field">
+                <label>Pincode *</label>
+                <input id="supplierPincode" required>
+              </div>
+
+              <div class="field full-field">
+                <label>Business Address *</label>
+                <textarea id="supplierAddress" rows="3" required></textarea>
+              </div>
+
+              <div class="field full-field">
+                <label>Materials / Categories Supplied *</label>
+
+                <div id="supplierCategoryChecks" class="checkbox-grid"></div>
+              </div>
+
+              <div class="field full-field">
+                <label>Business Description</label>
+
+                <textarea
+                  id="supplierDescription"
+                  rows="4"
+                  placeholder="Tell customers about your business"
+                ></textarea>
+              </div>
+
+              <div class="field full-field">
+
+                <label>Supplier Profile Picture</label>
+
+                <div class="upload-box">
+
+                  <div id="supplierImagePreview" class="profile-preview supplier-preview">
+                    <span>+</span>
+                  </div>
+
+                  <div>
+                    <input
+                      id="supplierImage"
+                      type="file"
+                      accept="image/*"
+                      onchange="previewSupplierImage(event)"
+                    >
+
+                    <small>
+                      This picture can be visible on your public supplier profile
+                      after approval.
+                    </small>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-footer vertical-mobile">
+
+              <div class="form-security">
+                🔒 Password is not stored in browser storage.
+              </div>
+
+              <button type="submit" class="primary-button">
+                Submit Registration →
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SUPPORT
+    ========================== -->
+    <section class="support-section">
+
+      <div class="container support-main-card">
+
+        <div>
+          <span class="section-kicker">BUILDEASY SUPPORT</span>
+
+          <h2 data-i18n="supportTitle">
+            Need help with BuildEasy?
+          </h2>
+
+          <p data-i18n="supportText">
+            Visitors, customers and suppliers can contact our support team.
+          </p>
+        </div>
+
+        <div class="support-actions">
+
+          <div class="support-contact">
+            <span>Customer Support</span>
+            <strong>89278876</strong>
+          </div>
+
+          <div class="support-contact">
+            <span>Supplier Support</span>
+            <strong>89278876</strong>
+          </div>
+
+          <a href="tel:89278876" class="primary-button">
+            ☎ Call Support
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer class="footer">
+
+    <div class="container footer-grid">
+
+      <div>
+        <div class="footer-brand">
+          <span class="brand-mark small">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+
+          <strong>BuildEasy</strong>
+        </div>
+
+        <p>
+          Construction materials and supplier ordering made simple.
+        </p>
+      </div>
+
+
+      <div>
+        <h4>Customers</h4>
+
+        <a href="#materials">Materials</a>
+        <a href="#suppliers">Suppliers</a>
+        <a href="#how">How It Works</a>
+        <button onclick="callCustomerSupport()">Customer Support</button>
+      </div>
+
+
+      <div>
+        <h4>Suppliers</h4>
+
+        <a href="#supplier-register">Register</a>
+        <button onclick="openLogin('supplier')">Supplier Login</button>
+        <a href="tel:89278876">Supplier Support</a>
+      </div>
+
+
+      <div>
+        <h4>Team</h4>
+
+        <button onclick="openAdminLogin()">Admin Access</button>
+
+        <span class="footer-phone">
+          Support: 89278876
+        </span>
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+      <span>© 2026 BuildEasy. All rights reserved.</span>
+      <span>Construction marketplace</span>
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       LOGIN MODAL
+  ========================== -->
+  <div id="loginModal" class="modal hidden">
+
+    <div class="modal-backdrop" onclick="closeModal('loginModal')"></div>
+
+    <div class="modal-card">
+
+      <button class="modal-close" onclick="closeModal('loginModal')">
+        ×
+      </button>
+
+      <span class="mini-kicker" id="loginModalKicker">
+        ACCOUNT LOGIN
+      </span>
+
+      <h2 id="loginModalTitle">Login</h2>
+
+      <p id="loginModalText">
+        Access your BuildEasy account.
+      </p>
+
+
+      <form onsubmit="handleLogin(event)">
+
+        <input type="hidden" id="loginRole">
+
+        <div class="field">
+          <label>Email</label>
+          <input id="loginEmail" type="email" required>
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input id="loginPassword" type="password" required>
+        </div>
+
+        <button class="primary-button full" type="submit">
+          Login
+        </button>
+
+      </form>
+
+
+      <div class="modal-divider">
+        <span>OR</span>
+      </div>
+
+
+      <button class="secondary-button full" onclick="openRegisterFromLogin()">
+        Create customer account
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CUSTOMER REGISTER MODAL
+  ========================== -->
+  <div id="customerRegisterModal" class="modal hidden">
+
+    <div class="modal-backdrop" onclick="closeModal('customerRegisterModal')"></div>
+
+    <div class="modal-card wide">
+
+      <button class="modal-close" onclick="closeModal('customerRegisterModal')">
+        ×
+      </button>
+
+      <span class="mini-kicker">CUSTOMER ACCOUNT</span>
+
+      <h2>Create your BuildEasy account</h2>
+
+      <p>
+        Profile photo upload is not saved in this version.
+      </p>
+
+
+      <form onsubmit="registerCustomer(event)">
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>Full Name *</label>
+            <input id="customerName" required>
+          </div>
+
+          <div class="field">
+            <label>Email *</label>
+            <input id="customerEmail" type="email" required>
+          </div>
+
+          <div class="field">
+            <label>Mobile</label>
+            <input id="customerPhone" type="tel">
+          </div>
+
+          <div class="field">
+            <label>Password *</label>
+            <input id="customerPassword" type="password" minlength="8" required>
+          </div>
+
+          <div class="field full-field">
+
+            <label>Profile Picture</label>
+
+            <div class="upload-box">
+
+              <div id="customerImagePreview" class="profile-preview">
+                <span>+</span>
+              </div>
+
+              <input
+                id="customerImage"
+                type="file"
+                accept="image/*"
+                onchange="previewCustomerImage(event)"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <button class="primary-button full" type="submit">
+          Create Account
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       ADMIN LOGIN
+  ========================== -->
+  <div id="adminLoginModal" class="modal hidden">
+
+    <div class="modal-backdrop" onclick="closeModal('adminLoginModal')"></div>
+
+    <div class="modal-card">
+
+      <button class="modal-close" onclick="closeModal('adminLoginModal')">
+        ×
+      </button>
+
+      <span class="mini-kicker">TEAM ACCESS</span>
+
+      <h2>BuildEasy Admin</h2>
+
+      <p>
+        Restricted team access.
+      </p>
+
+      <form onsubmit="adminLogin(event)">
+
+        <div class="field">
+          <label>Admin Email</label>
+          <input id="adminEmail" type="email" required>
+        </div>
+
+        <div class="field">
+          <label>Admin Password</label>
+          <input id="adminPassword" type="password" required>
+        </div>
+
+        <button class="primary-button full">
+          Open Admin Control Center
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       ADMIN PANEL
+  ========================== -->
+  <div id="adminPanel" class="admin-panel hidden">
+
+    <div class="admin-header">
+
+      <div>
+        <span class="mini-kicker">BUILDEASY TEAM</span>
+        <h2>Admin Control Center</h2>
+      </div>
+
+      <div class="admin-header-actions">
+
+        <button class="support-call-button" onclick="callCustomerSupport()">
+          ☎ 89278876
+        </button>
+
+        <button class="ghost-button light" onclick="signOutAccount()">
+          Sign out
+        </button>
+
+        <button class="ghost-button light" onclick="closeAdminPanel()">
+          Close
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="admin-content">
+
+      <!-- KPI -->
+      <div class="admin-kpis">
+
+        <div class="admin-kpi">
+          <span>Orders</span>
+          <strong id="adminOrders">0</strong>
+        </div>
+
+        <div class="admin-kpi">
+          <span>Suppliers</span>
+          <strong id="adminSuppliers">0</strong>
+        </div>
+
+        <div class="admin-kpi">
+          <span>Customers</span>
+          <strong id="adminCustomers">0</strong>
+        </div>
+
+        <div class="admin-kpi">
+          <span>Materials</span>
+          <strong id="adminMaterials">0</strong>
+        </div>
+
+      </div>
+
+
+      <!-- SUPPLIER APPROVAL -->
+      <div class="admin-card">
+
+        <div class="admin-card-header">
+          <div>
+            <span class="mini-kicker">SUPPLIER CONTROL</span>
+            <h3>Supplier Approval Queue</h3>
+          </div>
+        </div>
+
+        <div id="adminSupplierList"></div>
+
+      </div>
+
+
+      <!-- MATERIAL MANAGEMENT -->
+      <div class="admin-card">
+
+        <div class="admin-card-header">
+
+          <div>
+            <span class="mini-kicker">CATALOG</span>
+            <h3>Materials & Products</h3>
+          </div>
+
+          <button class="primary-button small" onclick="toggleMaterialForm()">
+            + Add Material
+          </button>
+
+        </div>
+
+
+        <div id="materialAdminForm" class="admin-form hidden">
+
+          <div class="form-grid">
+
+            <div class="field">
+              <label>English Name</label>
+              <input id="adminMaterialNameEn">
+            </div>
+
+            <div class="field">
+              <label>Bengali Name</label>
+              <input id="adminMaterialNameBn">
+            </div>
+
+            <div class="field">
+              <label>Unit</label>
+              <input id="adminMaterialUnit" placeholder="Bags / Tons / CFT">
+            </div>
+
+            <div class="field">
+              <label>Visual Type</label>
+
+              <select id="adminMaterialVisual">
+                <option value="cement">Cement</option>
+                <option value="steel">Steel</option>
+                <option value="sand">Sand</option>
+                <option value="brick">Brick</option>
+                <option value="tile">Tile</option>
+                <option value="pipe">Pipe</option>
+                <option value="generic">Generic</option>
+              </select>
+
+            </div>
+
+            <div class="field full-field">
+              <label>Description</label>
+              <textarea id="adminMaterialDescription"></textarea>
+            </div>
+
+          </div>
+
+          <div class="admin-form-actions">
+            <button class="secondary-button" onclick="toggleMaterialForm()">
+              Cancel
+            </button>
+
+            <button class="primary-button" onclick="addMaterial()">
+              Save Material
+            </button>
+          </div>
+
+        </div>
+
+
+        <div id="adminMaterialList" class="admin-material-list"></div>
+
+      </div>
+
+
+      <!-- ORDERS -->
+      <div class="admin-card">
+
+        <div class="admin-card-header">
+
+          <div>
+            <span class="mini-kicker">ORDER CONTROL</span>
+            <h3>Orders</h3>
+          </div>
+
+        </div>
+
+        <div id="adminOrderList"></div>
+
+      </div>
+
+
+      <!-- PEOPLE -->
+      <div class="admin-card">
+
+        <div class="admin-card-header">
+
+          <div>
+            <span class="mini-kicker">ACCOUNT DIRECTORY</span>
+            <h3>Customers & Suppliers</h3>
+          </div>
+
+        </div>
+
+        <div class="admin-people-grid">
+
+          <div>
+            <h4>Customers</h4>
+            <div id="adminCustomersList"></div>
+          </div>
+
+          <div>
+            <h4>Suppliers</h4>
+            <div id="adminSuppliersDirectory"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CONFIRM MODAL
+  ========================== -->
+  <div id="confirmModal" class="modal hidden">
+
+    <div class="modal-backdrop"></div>
+
+    <div class="modal-card small">
+
+      <div class="confirm-icon">!</div>
+
+      <h2 id="confirmTitle">Confirm</h2>
+
+        <div id="confirmText"></div>
+
+      <div class="confirm-actions">
+
+        <button class="secondary-button" onclick="closeModal('confirmModal')">
+          Cancel
+        </button>
+
+        <button id="confirmActionButton" class="primary-button">
+          Confirm
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       TOAST
+  ========================== -->
+  <div id="toast" class="toast"></div>
+
+
+  <script src="script.js?v=20260930-account-name-material-art"></script>
+
+</body>
+</html>
